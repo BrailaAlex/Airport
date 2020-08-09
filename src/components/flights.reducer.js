@@ -3,7 +3,7 @@ import { SHOW_DATA, SHOW_NUMBER, SHOW_DIRECTION } from "./flights.actions";
 const initState = {
   flightsData: null,
   flightNumber: "",
-  direction: "departures",
+  direction: "",
 };
 
 export const flightsReducer = (state = initState, action) => {

@@ -2,19 +2,14 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
-const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
   const config = {
-    resolve: {
-      extensions: [".js", ".jsx"],
-    },
-    entry: "./src/index.js",
+    entry: "./src/index.jsx",
     output: {
-      path: __dirname + "/pages",
+      path: __dirname + "/review_build",
       filename: "bundle.js",
-      publicPath: "/",
     },
     module: {
       rules: [
@@ -39,8 +34,12 @@ module.exports = (env, argv) => {
         template: "./src/index.html",
       }),
     ],
+    resolve: {
+      extensions: [".js", ".jsx"],
+    },
     devServer: {
       hot: true,
+      port: 9007,
       historyApiFallback: true,
     },
   };
@@ -49,8 +48,7 @@ module.exports = (env, argv) => {
     config.plugins.push(
       new MiniCssExtractPlugin({
         filename: "[name].css",
-      }),
-      new CopyPlugin([{ from: "_redirects", to: "" }])
+      })
     );
   }
 
