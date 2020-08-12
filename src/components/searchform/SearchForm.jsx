@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import "./searchSection.scss";
+import { showFlightDirection } from "../flights.selectors";
 
-const SearchForm = () => {
+const SearchForm = ({ direction }) => {
   const [searchInfo, setSearchParams] = useState("");
+  const isDirection = direction ? direction : "departures";
   const searchParam = searchInfo ? `?search=${searchInfo}` : "";
   return (
     <section className="search-section">
@@ -22,7 +25,7 @@ const SearchForm = () => {
             style={{
               textDecoration: "none",
             }}
-            to={`/flights/departures${searchParam}`}
+            to={`/flights/${isDirection}${searchParam}`}
           >
             <button className="search-btn">Search</button>
           </Link>
@@ -32,4 +35,10 @@ const SearchForm = () => {
   );
 };
 
-export default SearchForm;
+const mapState = (state) => {
+  return {
+    direction: showFlightDirection(state),
+  };
+};
+
+export default connect(mapState)(SearchForm);
