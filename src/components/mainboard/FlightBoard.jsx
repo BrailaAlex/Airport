@@ -3,25 +3,24 @@ import qs from "qs";
 import { connect } from "react-redux";
 import { useParams, useLocation } from "react-router-dom";
 import { showFilteredList } from "../flights.selectors";
-import {
-  getFlightList,
-  showFlightNumber,
-  getFlightDirection,
-} from "../flights.actions";
+import { getFlightList, showFlightNumber } from "../flights.actions";
 import FlightBoardBody from "./FlightBoardBody";
 import Spinner from "../spinner/Spinner";
 
 const FlightBoard = ({ flightData, getFlightList, showFlightNumber }) => {
   const { direction } = useParams();
+
   const flightNumber = qs.parse(useLocation().search, {
     ignoreQueryPrefix: true,
   }).search;
+
   useEffect(() => {
     showFlightNumber(flightNumber);
     getFlightList(direction);
-    getFlightDirection();
   }, [direction, flightNumber]);
+
   let isFlights;
+
   if (flightData && flightData.length > 0) {
     isFlights = flightData.map((flight) => (
       <FlightBoardBody key={flight.id} {...flight} />
@@ -37,7 +36,7 @@ const FlightBoard = ({ flightData, getFlightList, showFlightNumber }) => {
       </tr>
     );
   }
-  // console.log(useLocation().search);
+
   return (
     <div className="flight-board">
       <table className="flight-board__table">

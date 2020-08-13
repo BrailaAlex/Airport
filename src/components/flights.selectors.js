@@ -8,6 +8,7 @@ export const showFlightsList = (state) => {
 export const showFlightNumber = (state) => {
   return state.flights.flightNumber;
 };
+
 export const showFlightDirection = (state) => {
   return state.flights.direction;
 };
@@ -20,13 +21,17 @@ export const showFilteredList = createSelector(
       .map((flight) => {
         const destination =
           flight["airportToID.name_en"] || flight["airportFromID.name_en"];
+
         const statusName =
           flightsDirection === "departures" ? "Took of" : "Landed";
+
         const statusTime =
           flight.status === "DP"
             ? moment(flight.timeDepFact).format("h:mm")
             : moment(flight.timeLandFact).format("h:mm");
+
         const status = `${statusName} ${statusTime}`;
+
         return {
           id: flight.ID,
           terminal: flight.term,
