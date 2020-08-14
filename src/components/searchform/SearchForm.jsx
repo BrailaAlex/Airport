@@ -5,9 +5,12 @@ import "./searchSection.scss";
 import { showFlightDirection } from "../flights.selectors";
 
 const SearchForm = ({ direction }) => {
-  const [searchInfo, setSearchParams] = useState("");
+  const [searchInfo, setSearchInfo] = useState("");
+
   const isDirection = direction ? direction : "departures";
+
   const searchParam = searchInfo ? `?search=${searchInfo}` : "";
+
   return (
     <section className="search-section">
       <h2 className="title">Search flight</h2>
@@ -16,7 +19,7 @@ const SearchForm = ({ direction }) => {
           <i className="fas fa-search"></i>
           <input
             value={searchInfo}
-            onChange={() => setSearchParams(event.target.value)}
+            onChange={() => setSearchInfo(event.target.value)}
             className="search-form__input"
             type="text"
             placeholder="Please enter the flight #"
@@ -27,7 +30,7 @@ const SearchForm = ({ direction }) => {
             }}
             to={`/flights/${isDirection}${searchParam}`}
           >
-            <button className="search-btn">Search</button>
+            <div className="search-btn">Search</div>
           </Link>
         </form>
       </div>
